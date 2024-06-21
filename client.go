@@ -7,6 +7,7 @@ import (
 	rpc_http "github.com/cometbft/cometbft/rpc/client/http"
 )
 
+//go:generate mockery --name GosmClient --filename mock_gosm_client.go
 type GosmClient interface {
 	// cosmwasm
 	QuerySmartContractState(ctx context.Context, address string, query any) (*wasm_types.QuerySmartContractStateResponse, error)
