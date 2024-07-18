@@ -19,12 +19,7 @@ func (client *RPCClient) QuerySmartContractState(ctx context.Context, address st
 		QueryData: data,
 	}
 
-	data, err = queryMsg.Marshal()
-	if err != nil {
-		return nil, err
-	}
-
-	result, err := client.rpcConn.ABCIQuery(ctx, "/cosmwasm.wasm.v1.Query/SmartContractState", data)
+	result, err := client.ABCIQuery(ctx, "/cosmwasm.wasm.v1.Query/SmartContractState", queryMsg)
 	if err != nil {
 		return nil, err
 	}

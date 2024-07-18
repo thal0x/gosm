@@ -6,3 +6,7 @@ import "github.com/cometbft/cometbft/rpc/client"
 type CometClient interface {
 	client.RemoteClient
 }
+
+type Marshaler interface {
+	Marshal() ([]byte, error)
+}
