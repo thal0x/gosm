@@ -1,4 +1,4 @@
-package gosm
+package gosm_test
 
 import (
 	"context"
@@ -13,6 +13,7 @@ import (
 	"github.com/cometbft/cometbft/libs/bytes"
 	core_types "github.com/cometbft/cometbft/rpc/core/types"
 
+	"github.com/thal0x/gosm"
 	"github.com/thal0x/gosm/mocks"
 	"github.com/thal0x/gosm/utils"
 )
@@ -28,10 +29,7 @@ func TestQuerySmartContractState(t *testing.T) {
 		},
 	}, nil)
 
-	client := &RPCClient{
-		chainID: "test-chain",
-		rpcConn: mockCometClient,
-	}
+	client := gosm.NewRPCClient("test-chain", mockCometClient)
 
 	type QueryMsg struct {
 		Pair struct{} `json:"pair"`
