@@ -48,6 +48,66 @@ func (_m *GosmClient) ABCIQuery(ctx context.Context, path string, req gosm.Marsh
 	return r0, r1
 }
 
+// Block provides a mock function with given fields: ctx, height
+func (_m *GosmClient) Block(ctx context.Context, height *int64) (*coretypes.ResultBlock, error) {
+	ret := _m.Called(ctx, height)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Block")
+	}
+
+	var r0 *coretypes.ResultBlock
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *int64) (*coretypes.ResultBlock, error)); ok {
+		return rf(ctx, height)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *int64) *coretypes.ResultBlock); ok {
+		r0 = rf(ctx, height)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*coretypes.ResultBlock)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, *int64) error); ok {
+		r1 = rf(ctx, height)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// BlockResults provides a mock function with given fields: ctx, height
+func (_m *GosmClient) BlockResults(ctx context.Context, height *int64) (*coretypes.ResultBlockResults, error) {
+	ret := _m.Called(ctx, height)
+
+	if len(ret) == 0 {
+		panic("no return value specified for BlockResults")
+	}
+
+	var r0 *coretypes.ResultBlockResults
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *int64) (*coretypes.ResultBlockResults, error)); ok {
+		return rf(ctx, height)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *int64) *coretypes.ResultBlockResults); ok {
+		r0 = rf(ctx, height)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*coretypes.ResultBlockResults)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, *int64) error); ok {
+		r1 = rf(ctx, height)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // QuerySmartContractState provides a mock function with given fields: ctx, address, query
 func (_m *GosmClient) QuerySmartContractState(ctx context.Context, address string, query interface{}) (*types.QuerySmartContractStateResponse, error) {
 	ret := _m.Called(ctx, address, query)
