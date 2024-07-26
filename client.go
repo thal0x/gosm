@@ -7,28 +7,33 @@ import (
 
 	rpc_http "github.com/cometbft/cometbft/rpc/client/http"
 	core_types "github.com/cometbft/cometbft/rpc/core/types"
+	jsonrpc_client "github.com/cometbft/cometbft/rpc/jsonrpc/client"
 )
 
 //go:generate mockery --name GosmClient --filename mock_gosm_client.go
 type GosmClient interface {
 	// cometbft
 	ABCIQuery(ctx context.Context, path string, req Marshaler) (*core_types.ResultABCIQuery, error)
+	Block(ctx context.Context, height *int64) (*core_types.ResultBlock, error)
+	BlockResults(ctx context.Context, height *int64) (*core_types.ResultBlockResults, error)
 
 	// cosmwasm
 	QuerySmartContractState(ctx context.Context, address string, query any) (*wasm_types.QuerySmartContractStateResponse, error)
 }
 
 type RPCClient struct {
-	chainID string
-	rpcConn CometClient
+	chainID   string
+	rpcConn   CometClient
+	rpcCaller jsonrpc_client.Caller
 }
 
 var _ GosmClient = (*RPCClient)(nil)
 
-func NewRPCClient(chainID string, rpcConn CometClient) *RPCClient {
+func NewRPCClient(chainID string, rpcConn CometClient, rpcCaller jsonrpc_client.Caller) *RPCClient {
 	return &RPCClient{
-		chainID: chainID,
-		rpcConn: rpcConn,
+		chainID:   chainID,
+		rpcConn:   rpcConn,
+		rpcCaller: rpcCaller,
 	}
 }
 
@@ -38,12 +43,17 @@ func Dial(ctx context.Context, rpcEndpoint string) (*RPCClient, error) {
 		return nil, err
 	}
 
+	rpcCaller, err := jsonrpc_client.New(rpcEndpoint)
+	if err != nil {
+		return nil, err
+	}
+
 	status, err := rpcConn.Status(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	client := NewRPCClient(status.NodeInfo.Network, rpcConn)
+	client := NewRPCClient(status.NodeInfo.Network, rpcConn, rpcCaller)
 
 	return client, nil
 }

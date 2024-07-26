@@ -29,7 +29,7 @@ func TestQuerySmartContractState(t *testing.T) {
 		},
 	}, nil)
 
-	client := gosm.NewRPCClient("test-chain", mockCometClient)
+	client := gosm.NewRPCClient("test-chain", mockCometClient, nil)
 
 	type QueryMsg struct {
 		Pair struct{} `json:"pair"`
