@@ -6,6 +6,7 @@ require (
 	github.com/CosmWasm/wasmd v0.50.0
 	github.com/cometbft/cometbft v0.38.7
 	github.com/stretchr/testify v1.8.4
+	golang.org/x/mod v0.13.0
 )
 
 require (

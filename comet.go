@@ -8,6 +8,10 @@ import (
 	comet_types "github.com/cometbft/cometbft/types"
 )
 
+func (c *RPCClient) CometLegacyEncoding() bool {
+	return c.cometLegacyEncoding
+}
+
 func (c *RPCClient) Block(ctx context.Context, height *int64) (*core_types.ResultBlock, error) {
 	if c.chainID == "pacific-1" {
 		return c.blockSei(ctx, height)
