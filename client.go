@@ -22,6 +22,7 @@ type GosmClient interface {
 	ABCIQuery(ctx context.Context, path string, req Marshaler) (*core_types.ResultABCIQuery, error)
 	Block(ctx context.Context, height *int64) (*core_types.ResultBlock, error)
 	BlockResults(ctx context.Context, height *int64) (*core_types.ResultBlockResults, error)
+	CometLegacyEncoding() bool
 
 	// cosmwasm
 	QuerySmartContractState(ctx context.Context, address string, query any) (*wasm_types.QuerySmartContractStateResponse, error)

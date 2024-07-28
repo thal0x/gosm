@@ -108,6 +108,24 @@ func (_m *GosmClient) BlockResults(ctx context.Context, height *int64) (*coretyp
 	return r0, r1
 }
 
+// CometLegacyEncoding provides a mock function with given fields:
+func (_m *GosmClient) CometLegacyEncoding() bool {
+	ret := _m.Called()
+
+	if len(ret) == 0 {
+		panic("no return value specified for CometLegacyEncoding")
+	}
+
+	var r0 bool
+	if rf, ok := ret.Get(0).(func() bool); ok {
+		r0 = rf()
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	return r0
+}
+
 // QuerySmartContractState provides a mock function with given fields: ctx, address, query
 func (_m *GosmClient) QuerySmartContractState(ctx context.Context, address string, query interface{}) (*types.QuerySmartContractStateResponse, error) {
 	ret := _m.Called(ctx, address, query)
